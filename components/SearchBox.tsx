@@ -19,25 +19,35 @@ export function SearchBox() {
 
   async function handleChange(value: string) {
     setQuery(value);
+
     if (value.trim().length < 2) {
       setResults([]);
       setOpen(false);
       return;
     }
+
     try {
-      const base = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api/v1";
-      const res = await fetch(`${base}/search?q=${encodeURIComponent(value)}`);
+      const base =
+        process.env.NEXT_PUBLIC_API_BASE_URL ??
+        "https://eios-backend.onrender.com";
+
+      const res = await fetch(
+        `${base}/search?q=${encodeURIComponent(value)}`
+      );
+
       const data = await res.json();
       setResults(data.results ?? []);
       setOpen(true);
     } catch {
       setResults([]);
+      setOpen(false);
     }
   }
 
   function handleSelect(result: SearchResult) {
     setOpen(false);
     setQuery("");
+
     startTransition(() => {
       if (result.type === "district") {
         router.push(`/district/${result.code}`);
@@ -58,6 +68,7 @@ export function SearchBox() {
         className="w-full rounded-md border border-base-600 bg-base-800 px-3 py-1.5 text-sm text-ink-100 placeholder:text-ink-700 focus:border-signal focus:outline-none"
         aria-label="Search districts and states"
       />
+
       {open && results.length > 0 && (
         <ul className="absolute z-50 mt-1 w-full overflow-hidden rounded-md border border-base-600 bg-base-800 shadow-panel">
           {results.map((r) => (
