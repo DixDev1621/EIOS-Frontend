@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+html,
+body {
+  background-color: #080b10;
+  color: #edf2f7;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: rgba(73, 211, 232, 0.25);
+}
+
+/* Visible keyboard focus everywhere -- accessibility floor */
+:focus-visible {
+  outline: 2px solid #49d3e8;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Station-plot signature element.
+
+   Borrowed directly from real synoptic-meteorology station plots: a
+   central reading with compass-position readouts around it. Grounds
+   the whole UI in the instrument's own visual vocabulary rather than
+   a generic dashboard card.
+--------------------------------------------------------------------- */
+.station-plot {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.station-plot::before {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border: 1px solid rgba(133, 147, 163, 0.25);
+  border-radius: 9999px;
+}
+
+.station-readout {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #8593a3;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.station-readout--n {
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.station-readout--e {
+  right: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.station-readout--s {
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.station-readout--w {
+  left: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
