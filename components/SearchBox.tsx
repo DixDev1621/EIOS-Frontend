@@ -29,11 +29,15 @@ export function SearchBox() {
     try {
       const base =
         process.env.NEXT_PUBLIC_API_BASE_URL ??
-        "https://eios-backend.onrender.com";
+        "https://eios-backend.onrender.com/api/v1";
 
       const res = await fetch(
         `${base}/search?q=${encodeURIComponent(value)}`
       );
+
+      if (!res.ok) {
+        throw new Error("Search failed");
+      }
 
       const data = await res.json();
       setResults(data.results ?? []);
@@ -74,6 +78,7 @@ export function SearchBox() {
           {results.map((r) => (
             <li key={`${r.type}-${r.code}`}>
               <button
+                type="button"
                 onClick={() => handleSelect(r)}
                 className="flex w-full items-center justify-between px-3 py-2 text-left text-sm text-ink-300 hover:bg-base-700 hover:text-ink-100"
               >
