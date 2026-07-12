@@ -2,10 +2,6 @@ import Link from "next/link";
 import { SearchBox } from "./SearchBox";
 
 export function NavBar() {
-  const apiBase =
-    process.env.NEXT_PUBLIC_API_BASE_URL ??
-    "https://eios-backend.onrender.com";
-
   return (
     <header className="sticky top-0 z-50 border-b border-base-600 bg-base-950/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
@@ -43,15 +39,6 @@ export function NavBar() {
           >
             Delhi
           </Link>
-
-          <a
-            href={`${apiBase}/docs`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-signal"
-          >
-            API Docs
-          </a>
         </nav>
       </div>
     </header>
